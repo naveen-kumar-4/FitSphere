@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="description" content="FitSphere - Child growth assessment, nutrition, and wellness tracker for parents.">
+    <meta name="theme-color" content="#153c2c">
+    <title>FitSphere | Child Growth & Wellness Platform</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- TOP NAVBAR -->
+<header class="navbar" id="topNavbar">
+    <a href="#home" class="brand" aria-label="FitSphere Home">
+        <span class="brand-icon">✦</span> FitSphere
+    </a>
+
+    <!-- Desktop Navigation Links -->
+    <nav class="desktop-nav" aria-label="Primary navigation">
+        <a href="#home">Home</a>
+        <a href="#features">Features</a>
+        <a href="#assessment">Assessment</a>
+        <a href="#history">Growth History</a>
+    </nav>
+
+    <!-- Header Right Controls -->
+    <div class="nav-controls">
+        <!-- Accessibility Text Size Scaler -->
+        <div class="text-size-widget" title="Adjust text size for easier reading" aria-label="Text size switcher">
+            <span class="size-label" aria-hidden="true">Text:</span>
+            <button type="button" class="size-btn active" data-scale="1" title="Standard text size" aria-label="Default text size">A</button>
+            <button type="button" class="size-btn" data-scale="1.15" title="Large text size" aria-label="Large text size">A+</button>
+            <button type="button" class="size-btn" data-scale="1.3" title="Extra large text size" aria-label="Extra large text size">A++</button>
+        </div>
+
+        <a href="#assessment" class="nav-btn desktop-only">Get Started ↗</a>
+
+        <!-- Mobile Menu Toggle Button -->
+        <button type="button" class="menu-toggle" id="menuToggle" aria-label="Open mobile navigation menu" aria-expanded="false" aria-controls="mobileMenu">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </button>
+    </div>
+</header>
+
+<!-- Mobile Navigation Drawer Overlay -->
+<div class="mobile-menu-overlay" id="menuOverlay" aria-hidden="true"></div>
+<nav class="mobile-menu" id="mobileMenu" aria-label="Mobile navigation" aria-hidden="true">
+    <div class="mobile-menu-header">
+        <span class="brand"><span class="brand-icon">✦</span> FitSphere</span>
+        <button type="button" class="mobile-close-btn" id="mobileCloseBtn" aria-label="Close mobile navigation menu">✕</button>
+    </div>
+    <div class="mobile-menu-links">
+        <a href="#home" class="mobile-link">🏠 Home</a>
+        <a href="#features" class="mobile-link">✨ Features</a>
+        <a href="#assessment" class="mobile-link">📋 Assessment</a>
+        <a href="#history" class="mobile-link">📈 Growth History</a>
+    </div>
+    <div class="mobile-menu-footer">
+        <div class="mobile-size-control">
+            <span>Text Size:</span>
+            <div class="size-btn-group">
+                <button type="button" class="size-btn-mobile active" data-scale="1">Default</button>
+                <button type="button" class="size-btn-mobile" data-scale="1.15">Large</button>
+                <button type="button" class="size-btn-mobile" data-scale="1.3">XL</button>
+            </div>
+        </div>
+        <a href="#assessment" class="primary-btn mobile-cta-btn">Start Child Assessment →</a>
+    </div>
+</nav>
+
+<main>
+    <!-- HERO SECTION -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <span class="eyebrow">✦ HEALTHY CHILDREN, HAPPIER FUTURE</span>
+
+            <h1>
+                Every child deserves<br>
+                a <span>healthy start.</span>
+            </h1>
+
+            <p>
+                Made for children aged 0 to 10 years. Understand your child's growth, discover healthy nutrition habits,
+                and explore personalized pediatric wellness guidance with FitSphere.
+            </p>
+
+            <div class="hero-actions">
+                <a href="#assessment" class="primary-btn">
+                    Start Assessment →
+                </a>
+                <button type="button" class="demo-btn" id="heroDemoBtn">
+                    ✨ Try Demo (Aarav, 4y)
+                </button>
+                <a href="#features" class="secondary-btn">
+                    Explore Features
+                </a>
+            </div>
+
+            <div class="hero-stats">
+                <div class="stat-card">
+                    <strong>0–10</strong>
+                    <small>Years supported</small>
+                </div>
+                <div class="stat-card">
+                    <strong>100%</strong>
+                    <small>Private & browser-based</small>
+                </div>
+                <div class="stat-card">
+                    <strong>WHO & IAP</strong>
+                    <small>Growth benchmarks</small>
+                </div>
+            </div>
+        </div>
+
+        <div class="hero-visual">
+            <div class="visual-circle" aria-hidden="true"></div>
+            <div class="visual-card">
+                <div class="visual-top">
+                    <span>CHILD WELLNESS DASHBOARD</span>
+                    <span>✦</span>
+                </div>
+                <div class="visual-emoji" aria-hidden="true">🌱</div>
+                <h3>Growing healthy, growing happy.</h3>
+                <p>Nurturing daily habits today builds a brighter, resilient tomorrow.</p>
+                <div class="visual-bottom">
+                    <span>🥗 Nutrition</span>
+                    <span>🏃 Activity</span>
+                    <span>📏 Growth</span>
+                </div>
+            </div>
+            <div class="floating floating-one">🥑 Balanced Nutrition</div>
+            <div class="floating floating-two">🏃 Active & Happy</div>
+        </div>
+    </section>
+
+    <!-- FEATURES SECTION -->
+    <section class="features-section" id="features">
+        <div class="section-heading">
+            <span class="eyebrow">WHAT WE OFFER</span>
+            <h2>A healthier journey starts here.</h2>
+            <p>Everything parents and caregivers need to understand and nurture childhood growth.</p>
+        </div>
+
+        <div class="feature-grid">
+            <article class="feature-card green">
+                <span class="feature-icon" aria-hidden="true">📏</span>
+                <h3>Growth Insights</h3>
+                <p>Monitor height, weight, and BMI percentiles with international WHO and IAP growth references.</p>
+            </article>
+
+            <article class="feature-card orange">
+                <span class="feature-icon" aria-hidden="true">🥗</span>
+                <h3>Smart Nutrition</h3>
+                <p>Discover age-tailored meal ideas, balanced food groups, hydration, and healthy eating routines.</p>
+            </article>
+
+            <article class="feature-card blue">
+                <span class="feature-icon" aria-hidden="true">⚽</span>
+                <h3>Physical Activities</h3>
+                <p>Find age-appropriate movement routines, outdoor games, and motor skills play guidelines.</p>
+            </article>
+
+            <article class="feature-card pink">
+                <span class="feature-icon" aria-hidden="true">🌙</span>
+                <h3>Sleep & Daily Targets</h3>
+                <p>Get exact sleep hours, hydration goals, and screen time balance recommendations for your child's age.</p>
+            </article>
+        </div>
+    </section>
+
+    <!-- ASSESSMENT SECTION -->
+    <section class="assessment-section" id="assessment">
+        <div class="assessment-heading">
+            <span class="eyebrow">PERSONALIZED WELLNESS</span>
+            <h2>Let's understand your child's growth.</h2>
+            <p>Enter a few quick details to generate a comprehensive, personalized pediatric wellness report.</p>
+        </div>
+
+        <div class="assessment-layout">
+            <div class="form-card">
+                <div class="form-header">
+                    <div>
+                        <h3>Child's Profile</h3>
+                        <p>Fill in details or click "Try Demo" to test instantly.</p>
+                    </div>
+                    <button type="button" class="quick-demo-pill" id="demoBtn" title="Fill form with sample 4-year-old profile">
+                        ⚡ Quick Demo Data
+                    </button>
+                </div>
+
+                <!-- UNIT SWITCHER (Metric vs Imperial) -->
+                <div class="unit-toggle-wrapper">
+                    <span class="unit-label">Units:</span>
+                    <div class="unit-toggle" role="group" aria-label="Measurement unit toggle">
+                        <button type="button" class="unit-btn active" id="unitMetric" data-unit="metric">
+                            Metric (cm, kg)
+                        </button>
+                        <button type="button" class="unit-btn" id="unitImperial" data-unit="imperial">
+                            Imperial (ft/in, lbs)
+                        </button>
+                    </div>
+                </div>
+
+                <form id="growthForm" novalidate>
+                    <!-- Child's Name -->
+                    <div class="form-group">
+                        <label for="childName">Child's Name <span class="required">*</span></label>
+                        <input type="text" id="childName"
+                               placeholder="e.g. Aarav, Maya, Liam"
+                               maxlength="40" required autocomplete="given-name">
+                    </div>
+
+                    <!-- Age Row -->
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="ageYears">Age in Years <span class="required">*</span></label>
+                            <input type="number" id="ageYears"
+                                   min="0" max="10"
+                                   placeholder="0 - 10" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="ageMonths">Additional Months</label>
+                            <select id="ageMonths">
+                                <option value="0">0 months</option>
+                                <option value="1">1 month</option>
+                                <option value="2">2 months</option>
+                                <option value="3">3 months</option>
+                                <option value="4">4 months</option>
+                                <option value="5">5 months</option>
+                                <option value="6">6 months</option>
+                                <option value="7">7 months</option>
+                                <option value="8">8 months</option>
+                                <option value="9">9 months</option>
+                                <option value="10">10 months</option>
+                                <option value="11">11 months</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Sex Selection -->
+                    <div class="form-group">
+                        <label>Sex (for pediatric growth standards) <span class="required">*</span></label>
+                        <div class="gender-options" role="radiogroup" aria-label="Child sex">
+                            <label class="gender-option">
+                                <input type="radio" name="sex" value="boy" required>
+                                <span>👦 Boy</span>
+                            </label>
+                            <label class="gender-option">
+                                <input type="radio" name="sex" value="girl">
+                                <span>👧 Girl</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- METRIC MEASUREMENTS (Default) -->
+                    <div id="metricInputs" class="form-row measurement-row">
+                        <div class="form-group">
+                            <label for="height">Height / Length (cm) <span class="required">*</span></label>
+                            <input type="number" id="height"
+                                   min="30" max="150" step="0.1"
+                                   placeholder="e.g. 102.5">
+                            <small class="field-hint">Range: 30 to 150 cm</small>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="weight">Weight (kg) <span class="required">*</span></label>
+                            <input type="number" id="weight"
+                                   min="1" max="60" step="0.1"
+                                   placeholder="e.g. 16.2">
+                            <small class="field-hint">Range: 1 to 60 kg</small>
+                        </div>
+                    </div>
+
+                    <!-- IMPERIAL MEASUREMENTS (Hidden by default) -->
+                    <div id="imperialInputs" class="measurement-row" hidden>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="heightFt">Height (Feet) <span class="required">*</span></label>
+                                <input type="number" id="heightFt"
+                                       min="1" max="5" step="1"
+                                       placeholder="Feet (e.g. 3)">
+                            </div>
+                            <div class="form-group">
+                                <label for="heightIn">Height (Inches) <span class="required">*</span></label>
+                                <input type="number" id="heightIn"
+                                       min="0" max="11.9" step="0.1"
+                                       placeholder="Inches (e.g. 5)">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="weightLbs">Weight (Pounds / lbs) <span class="required">*</span></label>
+                            <input type="number" id="weightLbs"
+                                   min="2" max="132" step="0.1"
+                                   placeholder="e.g. 35.5">
+                            <small class="field-hint">Range: 2 to 132 lbs</small>
+                        </div>
+                    </div>
+
+                    <!-- Measurement Type -->
+                    <div class="form-group">
+                        <label for="measurement">How was height / length measured?</label>
+                        <select id="measurement" required>
+                            <option value="standing">Standing height (recommended for 2+ years)</option>
+                            <option value="lying">Lying-down recumbent length (recommended under 2 years)</option>
+                        </select>
+                        <small id="measurementTip" class="field-hint text-green">💡 For toddlers under 2, measuring lying-down length is most accurate.</small>
+                    </div>
+
+                    <!-- Activity Level -->
+                    <div class="form-group">
+                        <label for="activity">Current Daily Activity Level</label>
+                        <select id="activity" required>
+                            <option value="low">Mostly quiet / low activity (mostly sitting, screen time)</option>
+                            <option value="moderate" selected>Moderately active (regular playground, walking, light sports)</option>
+                            <option value="high">Very active (energetic running, sports team, dance, cycling)</option>
+                        </select>
+                    </div>
+
+                    <!-- Focus Area -->
+                    <div class="form-group">
+                        <label for="concern">Primary Wellness Focus</label>
+                        <select id="concern">
+                            <option value="general">Overall healthy growth & routine</option>
+                            <option value="nutrition">Nutrition, picky eating & balanced diet</option>
+                            <option value="activity">Physical fitness & outdoor activities</option>
+                            <option value="sleep">Sleep schedule & daily bedtime habits</option>
+                            <option value="growth">Height / weight growth trajectory check</option>
+                        </select>
+                    </div>
+
+                    <button type="submit" class="submit-btn" id="generateBtn">
+                        Generate Wellness Report →
+                    </button>
+
+                    <p class="privacy-note">
+                        🔒 <strong>100% Private:</strong> Your child's data is processed locally and stays right inside your browser.
+                    </p>
+                </form>
+            </div>
+
+            <!-- Aside Guidance Cards -->
+            <aside class="assessment-side">
+                <div class="side-card">
+                    <span class="side-icon" aria-hidden="true">🌿</span>
+                    <h3>Every child grows at their own pace.</h3>
+                    <p>
+                        Growth is influenced by genetics, nutrition, physical activity, and sleep.
+                        A single measurement is just one chapter of their continuous growth story.
+                    </p>
+                </div>
+
+                <div class="side-card light-card">
+                    <h3>What your report includes:</h3>
+                    <ul class="check-list">
+                        <li>✓ Age-adjusted pediatric BMI calculation</li>
+                        <li>✓ Visual WHO & IAP Growth Gauge</li>
+                        <li>✓ Daily Sleep, Hydration & Screen targets</li>
+                        <li>✓ Food habits & nutrition for your child's age</li>
+                        <li>✓ Health-care tips, check-ups & vaccine reminders</li>
+                        <li>✓ Developmental milestones to watch</li>
+                        <li>✓ Active play & physical recommendations</li>
+                        <li>✓ Save, print, and export growth history</li>
+                    </ul>
+                </div>
+
+                <div class="safety-note">
+                    <strong>👩‍⚕️ Important Pediatric Note</strong>
+                    <p>
+                        FitSphere provides educational wellness information and is not a substitute
+                        for professional medical diagnosis. Always consult your pediatrician for individual clinical guidance.
+                    </p>
+                </div>
+            </aside>
+        </div>
+    </section>
+
+    <!-- RESULTS SECTION -->
+    <section id="results" class="results-section" hidden aria-live="polite">
+        <div class="results-heading">
+            <span class="eyebrow">YOUR CHILD'S PERSONALIZED REPORT</span>
+            <h2 id="resultTitle">Growth & Wellness Insights</h2>
+            <p id="resultSubtitle" class="result-subtitle"></p>
+        </div>
+
+        <!-- VISUAL GROWTH STATUS & BMI GAUGE CARD -->
+        <div class="bmi-gauge-card" id="bmiGaugeContainer">
+            <div class="gauge-header">
+                <div>
+                    <span class="gauge-tag">PEDIATRIC GROWTH CLASSIFICATION</span>
+                    <h3 id="growthCategoryName">Healthy Weight Range</h3>
+                    <p id="growthCategoryDesc">BMI falls within the expected pediatric growth range for age and sex.</p>
+                </div>
+                <div class="gauge-badge" id="growthBadge">Normal Range</div>
+            </div>
+
+            <!-- Visual Color-coded Meter -->
+            <div class="meter-wrapper">
+                <div class="meter-track">
+                    <div class="meter-segment seg-under" title="Lower weight range">Underweight</div>
+                    <div class="meter-segment seg-healthy" title="Healthy growth zone">Healthy Weight</div>
+                    <div class="meter-segment seg-risk" title="Overweight risk">Overweight Risk</div>
+                    <div class="meter-segment seg-high" title="Elevated weight range">Higher Range</div>
+                </div>
+                <!-- Dynamic Marker Pointer -->
+                <div class="meter-needle" id="meterNeedle" style="left: 50%;">
+                    <div class="needle-tooltip" id="needleTooltip">BMI: 15.8</div>
+                    <div class="needle-pin"></div>
+                </div>
+            </div>
+            <div class="meter-labels">
+                <span>Lower Range</span>
+                <span>Ideal Growth Window</span>
+                <span>Higher Range</span>
+            </div>
+        </div>
+
+        <!-- 6 METRIC CARDS -->
+        <div id="resultCards" class="result-grid"></div>
+
+        <!-- DAILY PEDIATRIC TARGETS WIDGET -->
+        <div class="daily-targets-section" id="dailyTargetsSection">
+            <div class="targets-heading">
+                <span class="eyebrow">RECOMMENDED DAILY BENCHMARKS</span>
+                <h3>Age-Appropriate Daily Targets</h3>
+                <p>Evidence-based pediatric guidelines from WHO and the American Academy of Pediatrics (AAP).</p>
+            </div>
+            <div class="targets-grid" id="dailyTargetsGrid"></div>
+        </div>
+
+        <!-- Growth Reference Note -->
+        <div class="reference-note" id="referenceNote"></div>
+
+        <!-- THREE GUIDANCE CARDS -->
+        <div class="recommendation-grid">
+            <article class="recommendation-card nutrition">
+                <div class="rec-icon">🥗</div>
+                <h3>Nutrition Essentials</h3>
+                <ul id="nutritionList"></ul>
+            </article>
+            <article class="recommendation-card food">
+                <div class="rec-icon">🍽️</div>
+                <h3>Food Habits</h3>
+                <ul id="foodList"></ul>
+            </article>
+            <article class="recommendation-card health">
+                <div class="rec-icon">🩺</div>
+                <h3>Health Care Tips</h3>
+                <ul id="healthList"></ul>
+            </article>
+            <article class="recommendation-card checkups">
+                <div class="rec-icon">💉</div>
+                <h3>Check-ups & Vaccines</h3>
+                <ul id="checkupList"></ul>
+            </article>
+            <article class="recommendation-card milestones">
+                <div class="rec-icon">🧩</div>
+                <h3>Milestones to Watch</h3>
+                <ul id="milestoneList"></ul>
+            </article>
+            <article class="recommendation-card activity">
+                <div class="rec-icon">🏃</div>
+                <h3>Active Play & Fitness</h3>
+                <ul id="activityList"></ul>
+            </article>
+            <article class="recommendation-card lifestyle">
+                <div class="rec-icon">🌙</div>
+                <h3>Healthy Daily Routines</h3>
+                <ul id="lifestyleList"></ul>
+            </article>
+        </div>
+
+        <!-- Doctor Advisory Note -->
+        <div class="doctor-note">
+            <strong>👩‍⚕️ When to Consult a Pediatrician</strong>
+            <p id="doctorMessage">
+                Consult a pediatrician for individual growth assessment, persistent feeding challenges, or sudden weight fluctuations.
+            </p>
+        </div>
+
+        <!-- ACTION BUTTONS -->
+        <div class="result-actions">
+            <button id="saveBtn" class="primary-btn" type="button">
+                💾 Save to Growth History
+            </button>
+            <button id="printBtn" class="secondary-btn" type="button">
+                🖨️ Print / Save as PDF
+            </button>
+            <button id="exportSingleBtn" class="secondary-btn" type="button">
+                📥 Export Report (CSV)
+            </button>
+            <button id="newBtn" class="secondary-btn" type="button">
+                🔄 New Assessment
+            </button>
+        </div>
+    </section>
+
+    <!-- GROWTH HISTORY SECTION -->
+    <section class="history-section" id="history">
+        <div class="section-heading">
+            <span class="eyebrow">PROGRESS TRACKER</span>
+            <h2>Saved Growth History</h2>
+            <p>Review past measurements and track your child's progress over time.</p>
+        </div>
+
+        <div class="history-controls">
+            <div class="history-stats-pill" id="historyCount">0 measurements saved</div>
+            <div class="history-btn-group">
+                <button type="button" class="history-action-btn" id="exportHistoryBtn" title="Download all records as CSV spreadsheet">
+                    📥 Export All Records
+                </button>
+                <button type="button" class="history-action-btn danger" id="clearHistoryBtn" title="Remove all saved measurements">
+                    🗑️ Clear All
+                </button>
+            </div>
+        </div>
+
+        <div id="historyList" class="history-list">
+            <p class="empty-history">No saved measurements yet. Complete an assessment above and click "Save to Growth History".</p>
+        </div>
+    </section>
+</main>
+
+<!-- FOOTER -->
+<footer>
+    <div class="footer-content">
+        <a href="#home" class="brand">✦ FitSphere</a>
+        <p>Helping families nurture healthier, happier habits for children everywhere.</p>
+        <div class="footer-nav">
+            <a href="#home">Home</a>
+            <a href="#features">Features</a>
+            <a href="#assessment">Assessment</a>
+            <a href="#history">Growth History</a>
+        </div>
+        <small>© 2026 FitSphere Platform. For educational and wellness guidance only. Not a medical diagnostic tool.</small>
+    </div>
+</footer>
+
+<!-- FLOATING BACK TO TOP BUTTON -->
+<button type="button" class="back-to-top" id="backToTopBtn" aria-label="Back to top of page" title="Back to top">
+    ↑
+</button>
+
+<!-- TOAST NOTIFICATION CONTAINER -->
+<div class="toast-container" id="toastContainer" aria-live="assertive" aria-atomic="true"></div>
+
+<script src="script.js"></script>
+</body>
+</html>
