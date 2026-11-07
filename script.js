@@ -3,20 +3,20 @@
 // Client-side Application Logic & Pediatric Growth Reference Engine
 // ==========================================================================
 
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
 
     // --- DOM Elements ---
     const form = document.getElementById("growthForm");
     const results = document.getElementById("results");
     const toastContainer = document.getElementById("toastContainer");
     const backToTopBtn = document.getElementById("backToTopBtn");
-    
+
     // Unit Switcher Elements
     const unitMetricBtn = document.getElementById("unitMetric");
     const unitImperialBtn = document.getElementById("unitImperial");
     const metricInputs = document.getElementById("metricInputs");
     const imperialInputs = document.getElementById("imperialInputs");
-    
+
     // Form Inputs
     const childNameInput = document.getElementById("childName");
     const ageYearsInput = document.getElementById("ageYears");
@@ -47,7 +47,7 @@ document.addEventListener("DOMContentLoaded", function() {
     function showToast(message, type = "info") {
         const toast = document.createElement("div");
         toast.className = `toast toast-${type}`;
-        
+
         let icon = "ℹ️";
         if (type === "success") icon = "✅";
         if (type === "error") icon = "⚠️";
@@ -61,44 +61,6 @@ document.addEventListener("DOMContentLoaded", function() {
             toast.style.transition = "all 0.3s ease";
             setTimeout(() => toast.remove(), 300);
         }, 3500);
-    }
-
-    // ==========================================================================
-    // 2. ACCESSIBILITY: TEXT SIZE SCALER
-    // ==========================================================================
-    function initTextScale() {
-        const savedScale = localStorage.getItem("fitsphereFontScale") || "1";
-        applyFontScale(savedScale);
-
-        // Desktop buttons
-        document.querySelectorAll(".text-size-widget .size-btn").forEach(btn => {
-            btn.addEventListener("click", () => {
-                const scale = btn.getAttribute("data-scale");
-                applyFontScale(scale);
-            });
-        });
-
-        // Mobile buttons
-        document.querySelectorAll(".mobile-size-control .size-btn-mobile").forEach(btn => {
-            btn.addEventListener("click", () => {
-                const scale = btn.getAttribute("data-scale");
-                applyFontScale(scale);
-            });
-        });
-    }
-
-    function applyFontScale(scale) {
-        document.documentElement.style.setProperty("--font-scale", scale);
-        localStorage.setItem("fitsphereFontScale", scale);
-
-        // Update active classes
-        document.querySelectorAll(".size-btn, .size-btn-mobile").forEach(btn => {
-            if (btn.getAttribute("data-scale") === scale) {
-                btn.classList.add("active");
-            } else {
-                btn.classList.remove("active");
-            }
-        });
     }
 
     // ==========================================================================
@@ -188,7 +150,7 @@ document.addEventListener("DOMContentLoaded", function() {
     // ==========================================================================
     // 5. AGE-BASED MEASUREMENT AUTO-SUGGESTION
     // ==========================================================================
-    ageYearsInput.addEventListener("input", function() {
+    ageYearsInput.addEventListener("input", function () {
         const years = parseInt(this.value, 10);
         if (isNaN(years)) return;
 
@@ -202,38 +164,8 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 
     // ==========================================================================
-    // 6. QUICK DEMO DATA LOADER
+    // 6. (DEMO REMOVED)
     // ==========================================================================
-    function fillDemoProfile() {
-        childNameInput.value = "Aarav";
-        ageYearsInput.value = "4";
-        ageMonthsInput.value = "3";
-        
-        const boyRadio = document.querySelector('input[name="sex"][value="boy"]');
-        if (boyRadio) boyRadio.checked = true;
-
-        if (currentUnit === "metric") {
-            heightInput.value = "104.5";
-            weightInput.value = "16.8";
-        } else {
-            heightFtInput.value = "3";
-            heightInInput.value = "5.1";
-            weightLbsInput.value = "37.0";
-        }
-
-        measurementSelect.value = "standing";
-        activitySelect.value = "moderate";
-        concernSelect.value = "general";
-
-        showToast("Loaded demo profile for Aarav (4 yrs)!", "success");
-
-        document.getElementById("assessment").scrollIntoView({ behavior: "smooth" });
-    }
-
-    const demoBtn = document.getElementById("demoBtn");
-    const heroDemoBtn = document.getElementById("heroDemoBtn");
-    if (demoBtn) demoBtn.addEventListener("click", fillDemoProfile);
-    if (heroDemoBtn) heroDemoBtn.addEventListener("click", fillDemoProfile);
 
     // ==========================================================================
     // 7. GET PROFILE DATA & VALIDATION
@@ -484,42 +416,54 @@ document.addEventListener("DOMContentLoaded", function() {
     // 10. NUTRITION, ACTIVITY & LIFESTYLE SUGGESTIONS
     // ==========================================================================
     const GUIDE = {
-        b0: { label: "Newborn to 5 months",
+        b0: {
+            label: "Newborn to 5 months",
             nutrition: ["Exclusive breastfeeding on demand (8–12 feeds/day) meets all needs; no water, honey, ghutti or top feeds.", "If not breastfed, use only standard infant formula prepared with boiled, cooled water exactly as per the tin.", "Give vitamin D drops (about 400 IU/day) if your pediatrician advises."],
             food: ["Feed on hunger cues (rooting, hand-to-mouth) rather than the clock.", "Burp after feeds and keep the baby upright for 15–20 minutes to reduce spit-up.", "Wash hands and sterilise bottles, nipples and pump parts every time."],
             health: ["Place baby on the back to sleep, on a firm flat surface with nothing loose in the cot.", "Keep the cord stump clean and dry; bathe with lukewarm water and mild baby soap.", "Fever of 100.4°F (38°C) or higher in a baby under 3 months needs a doctor right away."],
             checkups: ["Birth doses: BCG, OPV-0 and Hepatitis B.", "6, 10 and 14 weeks: DTP, IPV, Hib, Hep B, Rotavirus and PCV.", "Weight and length check at every visit; ask about newborn screening."],
-            milestones: ["Follows faces and sounds; smiles socially by about 2 months.", "Holds head up in tummy time by 3–4 months."] },
-        b6: { label: "6 to 11 months",
+            milestones: ["Follows faces and sounds; smiles socially by about 2 months.", "Holds head up in tummy time by 3–4 months."]
+        },
+        b6: {
+            label: "6 to 11 months",
             nutrition: ["Start solids at 6 months while continuing breastfeeding/formula: ragi porridge, dal khichdi, mashed banana, well-cooked egg, curd.", "Prioritise iron: ragi, dal, egg, meat/fish and green leafy vegetables with a vitamin C food such as lemon or tomato.", "Aim for 2–3 meals by 8 months and 3 meals + 1–2 snacks by 9–11 months."],
             food: ["Introduce one new food at a time, 3 days apart, and watch for rash, vomiting or swelling.", "Move from smooth purée to mashed and soft finger foods; let baby self-feed and explore.", "No salt, sugar, honey, packaged baby snacks, cow's milk as a drink, juice, whole nuts, grapes or popcorn."],
             health: ["Offer small sips of boiled-cooled water with meals once solids begin.", "Start brushing the first teeth with a rice-grain smear of fluoride toothpaste.", "Baby-proof the home: socket covers, no small objects in reach, and never leave baby alone near water."],
             checkups: ["6 months: influenza (yearly) plus a growth and anaemia review.", "9 months: MMR-1 and typhoid conjugate vaccine.", "Hearing, vision and development screening at routine visits."],
-            milestones: ["Sits without support by 6–8 months; crawls and pulls to stand by 9–11 months.", "Babbles, responds to own name and waves bye-bye."] },
-        b12: { label: "1 to 2 years",
+            milestones: ["Sits without support by 6–8 months; crawls and pulls to stand by 9–11 months.", "Babbles, responds to own name and waves bye-bye."]
+        },
+        b12: {
+            label: "1 to 2 years",
             nutrition: ["Move to family foods: roti, rice, dal, vegetables, egg, paneer, fish or chicken, cut small and soft.", "Offer 400–500 ml whole milk/dairy a day (too much milk crowds out iron-rich food); breastfeeding can continue to 2 years.", "Add healthy fats: ghee, nut powder or paste, oil in cooking."],
             food: ["3 meals + 2 small snacks at regular times; avoid grazing and milk bottles between meals.", "Toddlers are picky: keep offering rejected foods calmly 10–15 times without forcing or bribing.", "Avoid whole nuts, whole grapes, popcorn and hard raw carrot (choking), plus juice, sweets and biscuits."],
             health: ["Brush twice daily with a smear of fluoride toothpaste; first dental check by age 1 and no night-time bottles.", "Wash hands before meals and after toilet or play; keep nails short.", "Give iron or vitamin D supplements only if prescribed."],
             checkups: ["12 months: Hepatitis A-1 (and a hemoglobin check).", "15–18 months: MMR-2, varicella, and DTP/Hib/IPV boosters.", "18 months: Hepatitis A-2 and developmental screening."],
-            milestones: ["Walks alone by 12–15 months; says a few words by 18 months.", "Points to show things, follows simple instructions, scribbles."] },
-        b24: { label: "2 to 4 years",
+            milestones: ["Walks alone by 12–15 months; says a few words by 18 months.", "Points to show things, follows simple instructions, scribbles."]
+        },
+        b24: {
+            label: "2 to 4 years",
             nutrition: ["Plate guide: half vegetables and fruit, a quarter whole grains (roti, millets, brown rice), a quarter protein (dal, egg, paneer, chicken, fish).", "2 cups of milk/curd daily for calcium; include iron foods such as ragi, beetroot and green leaves.", "Choose whole fruit over juice and water over sweet drinks."],
             food: ["Eat together at the table with no TV or phone; keep meals to about 20–30 minutes.", "Let your child serve small portions and choose between two healthy options.", "Don't use sweets or chips as rewards or bribes; keep them for occasional treats."],
             health: ["Brush twice daily with a pea-sized amount of fluoride toothpaste with an adult helping; dental check every 6 months.", "Teach 20-second handwashing; keep up to date on vaccines and ask about deworming.", "Use car seats or child restraints and give constant supervision near water."],
             checkups: ["Check height, weight and BMI-for-age at least every 6 months.", "Annual vision, hearing and anaemia review; yearly influenza shot.", "Typhoid booster and any pending vaccines per your pediatrician."],
-            milestones: ["Speaks in 2–3 word sentences by age 2 and full sentences by 3–4.", "Runs, jumps, climbs stairs, starts toilet training and plays with other children."] },
-        b60: { label: "5 to 7 years",
+            milestones: ["Speaks in 2–3 word sentences by age 2 and full sentences by 3–4.", "Runs, jumps, climbs stairs, starts toilet training and plays with other children."]
+        },
+        b60: {
+            label: "5 to 7 years",
             nutrition: ["Never skip breakfast: protein plus whole grain (egg, besan chilla, idli with sambar, poha with peanuts, oats with milk).", "Build bones with 2–3 servings of dairy/calcium daily (milk, curd, paneer, ragi, sesame) and morning sunlight for vitamin D.", "Pack a healthy lunchbox: roti or rice, a vegetable, protein and a fruit."],
             food: ["Keep fixed times for 3 meals and 2 snacks, and try one new vegetable each week.", "Limit chips, biscuits, instant noodles, sweets and sugary drinks to occasional, not daily.", "Involve your child in washing vegetables, mixing and plating food; children eat what they help prepare."],
             health: ["Brush twice daily and floss once teeth touch; dental check every 6 months.", "Get an annual eye check (especially if squinting or sitting close to screens) and limit screens.", "Teach road safety, personal safety and asking a trusted adult for help."],
             checkups: ["4–6 years: DTP booster-2, MMR-3/varicella-2 and IPV as advised by your pediatrician.", "Yearly height, weight, BMI and blood pressure where available.", "Yearly influenza vaccine and hemoglobin test."],
-            milestones: ["Ties shoelaces, hops, catches a ball and draws a person with detail.", "Recognises letters and numbers, follows 3-step instructions, makes friends."] },
-        b96: { label: "8 to 10 years",
+            milestones: ["Ties shoelaces, hops, catches a ball and draws a person with detail.", "Recognises letters and numbers, follows 3-step instructions, makes friends."]
+        },
+        b96: {
+            label: "8 to 10 years",
             nutrition: ["Needs more protein, iron and calcium for growth spurts: dal, legumes, eggs, milk, paneer, leafy vegetables, nuts and seeds.", "Aim for 5 portions of fruit and vegetables daily, with whole grains and millets over refined flour.", "Girls approaching puberty need extra iron (greens, ragi, dates, meat) with vitamin C foods."],
             food: ["Encourage a protein-rich breakfast and discourage skipping meals or emotional eating.", "Cut down on fried snacks, cold drinks, energy drinks, fast food and packaged sweets; read labels together.", "Talk about food positively; avoid calling foods \"bad\" or commenting on body size."],
             health: ["Teach independent hygiene: daily bath, clean clothes, hair and nail care, brushing twice and handwashing.", "Begin age-appropriate talks about body changes before puberty starts (girls often begin at 8–10).", "Watch posture, keep school bags under 10–15% of body weight and get yearly eye tests."],
             checkups: ["9–14 years: HPV vaccine (girls) as per IAP guidance; 10–12 years: Tdap booster.", "Annual growth check on percentile charts, plus vision, dental and hemoglobin screening.", "Discuss sleep, mood, bullying and screen use at visits."],
-            milestones: ["Reads fluently, reasons logically and manages homework with some independence.", "Early puberty signs may appear (growth spurt, body odor, breast buds in girls); ask your doctor if before age 8."] }
+            milestones: ["Reads fluently, reasons logically and manages homework with some independence.", "Early puberty signs may appear (growth spurt, body odor, breast buds in girls); ask your doctor if before age 8."]
+        }
     };
     function getBand(m) { return m < 6 ? GUIDE.b0 : m < 12 ? GUIDE.b6 : m < 24 ? GUIDE.b12 : m < 60 ? GUIDE.b24 : m < 96 ? GUIDE.b60 : GUIDE.b96; }
     function getNutritionSuggestions(p) {
@@ -545,7 +489,7 @@ document.addEventListener("DOMContentLoaded", function() {
     function getLifestyleSuggestions(p) {
         const m = p.ageInMonths;
         return [m < 12 ? "Follow a calm bedtime pattern (feed, cuddle, dim lights) and always sleep baby on the back." : "Keep a fixed bedtime and wake time with a calm routine (bath, story, lights low).",
-            m < 24 ? "Avoid screens except video calls with family." : "Keep screens to age limits, co-view content and keep them out of bedrooms and meals.",
+        m < 24 ? "Avoid screens except video calls with family." : "Keep screens to age limits, co-view content and keep them out of bedrooms and meals.",
             "Get outdoor sunlight every day for vitamin D and healthy eyes.", "Praise effort and kindness; never compare your child's size with others.", "Spend daily one-on-one time: talk, read and play together."];
     }
     function getDoctorMessage(p) {
@@ -585,16 +529,16 @@ document.addEventListener("DOMContentLoaded", function() {
 
         // Header titles
         document.getElementById("resultTitle").textContent = `${profile.name}'s Wellness Report`;
-        
+
         // Fixed bug: proper parentheses around sex ternary
         const sexLabel = profile.sex === "boy" ? "Boy 👦" : "Girl 👧";
-        document.getElementById("resultSubtitle").textContent = 
+        document.getElementById("resultSubtitle").textContent =
             `${getBand(profile.ageInMonths).label} · ${profile.years} years, ${profile.months} months · ${sexLabel} · Measured on ${new Date().toLocaleDateString()}`;
 
         // Growth Status & Visual BMI Gauge
         document.getElementById("growthCategoryName").textContent = classification.category;
         document.getElementById("growthCategoryDesc").textContent = classification.description;
-        
+
         const badge = document.getElementById("growthBadge");
         badge.textContent = classification.category;
         badge.style.backgroundColor = classification.badgeColor;
@@ -608,7 +552,7 @@ document.addEventListener("DOMContentLoaded", function() {
         // 6 Result Metric Cards
         const cards = document.getElementById("resultCards");
         const heightDisplay = profile.unitUsed === "imperial"
-            ? `${profile.height} cm (${Math.floor((profile.height/2.54)/12)}' ${Math.round(((profile.height/2.54)%12)*10)/10}")`
+            ? `${profile.height} cm (${Math.floor((profile.height / 2.54) / 12)}' ${Math.round(((profile.height / 2.54) % 12) * 10) / 10}")`
             : `${profile.height} cm`;
 
         const weightDisplay = profile.unitUsed === "imperial"
@@ -692,7 +636,7 @@ document.addEventListener("DOMContentLoaded", function() {
     // ==========================================================================
     // 12. FORM SUBMISSION
     // ==========================================================================
-    form.addEventListener("submit", function(event) {
+    form.addEventListener("submit", function (event) {
         event.preventDefault();
         const profile = getProfile();
         if (!profile) return;
@@ -722,7 +666,7 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     // Save Button
-    document.getElementById("saveBtn").addEventListener("click", function() {
+    document.getElementById("saveBtn").addEventListener("click", function () {
         if (!currentProfile) return;
 
         const history = getHistory();
@@ -854,7 +798,7 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     // Clear All Records
-    document.getElementById("clearHistoryBtn").addEventListener("click", function() {
+    document.getElementById("clearHistoryBtn").addEventListener("click", function () {
         const history = getHistory();
         if (history.length === 0) {
             showToast("History is already empty.", "info");
@@ -877,7 +821,7 @@ document.addEventListener("DOMContentLoaded", function() {
         }
 
         const headers = ["Child Name", "Date", "Age (Years)", "Age (Months)", "Sex", "Height (cm)", "Weight (kg)", "Calculated BMI", "Category", "Measurement Type", "Activity Level"];
-        
+
         const rows = records.map(r => [
             `"${r.name.replace(/"/g, '""')}"`,
             `"${r.date || ''}"`,
@@ -904,14 +848,14 @@ document.addEventListener("DOMContentLoaded", function() {
         showToast("Exported spreadsheet successfully!", "success");
     }
 
-    document.getElementById("exportHistoryBtn").addEventListener("click", function() {
+    document.getElementById("exportHistoryBtn").addEventListener("click", function () {
         const history = getHistory();
         exportToCSV(history, "FitSphere-All-Child-Records.csv");
     });
 
     const exportSingleBtn = document.getElementById("exportSingleBtn");
     if (exportSingleBtn) {
-        exportSingleBtn.addEventListener("click", function() {
+        exportSingleBtn.addEventListener("click", function () {
             if (!currentProfile) return;
             const single = [{
                 ...currentProfile,
@@ -924,11 +868,11 @@ document.addEventListener("DOMContentLoaded", function() {
     // ==========================================================================
     // 15. PRINT & NEW ASSESSMENT
     // ==========================================================================
-    document.getElementById("printBtn").addEventListener("click", function() {
+    document.getElementById("printBtn").addEventListener("click", function () {
         window.print();
     });
 
-    document.getElementById("newBtn").addEventListener("click", function() {
+    document.getElementById("newBtn").addEventListener("click", function () {
         form.reset();
         currentProfile = null;
         results.hidden = true;
@@ -939,7 +883,7 @@ document.addEventListener("DOMContentLoaded", function() {
     // ==========================================================================
     // 16. FLOATING BACK TO TOP BUTTON
     // ==========================================================================
-    window.addEventListener("scroll", function() {
+    window.addEventListener("scroll", function () {
         if (window.scrollY > 350) {
             backToTopBtn.classList.add("show");
         } else {
@@ -947,14 +891,392 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     });
 
-    backToTopBtn.addEventListener("click", function() {
+    backToTopBtn.addEventListener("click", function () {
         window.scrollTo({ top: 0, behavior: "smooth" });
     });
 
     // ==========================================================================
-    // 17. INITIALIZATION
+    // 17. LANGUAGE / i18n SYSTEM
     // ==========================================================================
-    initTextScale();
+    const TRANSLATIONS = {
+        en: {
+            nav_home: "Home", nav_features: "Features", nav_assessment: "Assessment", nav_history: "Growth History",
+            nav_home_mobile: "🏠 Home", nav_features_mobile: "✨ Features", nav_assessment_mobile: "📋 Assessment", nav_history_mobile: "📈 Growth History",
+            nav_getstarted: "Get Started ↗", mobile_cta: "Start Child Assessment →",
+            hero_eyebrow: "✦ HEALTHY CHILDREN, HAPPIER FUTURE",
+            hero_title: 'Every child deserves<br>a <span>healthy start.</span>',
+            hero_desc: "Made for children aged 0 to 10 years. Understand your child's growth, discover healthy nutrition habits, and explore personalized pediatric wellness guidance with FitSphere.",
+            hero_cta: "Start Assessment →", hero_explore: "Explore Features",
+            stat_years: "Years supported", stat_private: "Private & browser-based", stat_bench: "Growth benchmarks",
+            features_eyebrow: "WHAT WE OFFER", features_title: "A healthier journey starts here.",
+            features_desc: "Everything parents and caregivers need to understand and nurture childhood growth.",
+            feat_growth_title: "Growth Insights", feat_growth_desc: "Monitor height, weight, and BMI percentiles with international WHO and IAP growth references.",
+            feat_nutrition_title: "Smart Nutrition", feat_nutrition_desc: "Discover age-tailored meal ideas, balanced food groups, hydration, and healthy eating routines.",
+            feat_activity_title: "Physical Activities", feat_activity_desc: "Find age-appropriate movement routines, outdoor games, and motor skills play guidelines.",
+            feat_sleep_title: "Sleep & Daily Targets", feat_sleep_desc: "Get exact sleep hours, hydration goals, and screen time balance recommendations for your child's age.",
+            assess_eyebrow: "PERSONALIZED WELLNESS", assess_title: "Let's understand your child's growth.",
+            assess_desc: "Enter a few quick details to generate a comprehensive, personalized pediatric wellness report.",
+            form_submit: "Generate Wellness Report →",
+            form_privacy: '🔒 <strong>100% Private:</strong> Your child\'s data is processed locally and stays right inside your browser.',
+            history_eyebrow: "PROGRESS TRACKER", history_title: "Saved Growth History",
+            history_desc: "Review past measurements and track your child's progress over time.",
+            footer_tagline: "Helping families nurture healthier, happier habits for children everywhere.",
+            footer_copy: "© 2026 FitSphere Platform. For educational and wellness guidance only. Not a medical diagnostic tool."
+        },
+        hi: {
+            nav_home: "होम", nav_features: "विशेषताएँ", nav_assessment: "मूल्यांकन", nav_history: "विकास इतिहास",
+            nav_home_mobile: "🏠 होम", nav_features_mobile: "✨ विशेषताएँ", nav_assessment_mobile: "📋 मूल्यांकन", nav_history_mobile: "📈 विकास इतिहास",
+            nav_getstarted: "शुरू करें ↗", mobile_cta: "बच्चे का मूल्यांकन शुरू करें →",
+            hero_eyebrow: "✦ स्वस्थ बच्चे, सुखद भविष्य",
+            hero_title: 'हर बच्चे को मिलनी चाहिए<br>एक <span>स्वस्थ शुरुआत।</span>',
+            hero_desc: "0 से 10 साल के बच्चों के लिए बनाया गया। अपने बच्चे के विकास को समझें, स्वस्थ पोषण की आदतें खोजें, और FitSphere के साथ व्यक्तिगत बाल कल्याण मार्गदर्शन प्राप्त करें।",
+            hero_cta: "मूल्यांकन शुरू करें →", hero_explore: "विशेषताएँ देखें",
+            stat_years: "वर्ष समर्थित", stat_private: "निजी और ब्राउज़र-आधारित", stat_bench: "विकास मानदंड",
+            features_eyebrow: "हम क्या प्रदान करते हैं", features_title: "एक स्वस्थ यात्रा यहाँ से शुरू होती है।",
+            features_desc: "बचपन के विकास को समझने और पोषित करने के लिए माता-पिता और देखभालकर्ताओं के लिए सब कुछ।",
+            feat_growth_title: "विकास अंतर्दृष्टि", feat_growth_desc: "अंतर्राष्ट्रीय WHO और IAP विकास संदर्भों के साथ ऊँचाई, वजन और BMI प्रतिशतक की निगरानी करें।",
+            feat_nutrition_title: "स्मार्ट पोषण", feat_nutrition_desc: "उम्र के अनुसार भोजन के विचार, संतुलित खाद्य समूह, जलयोजन और स्वस्थ खाने की दिनचर्या खोजें।",
+            feat_activity_title: "शारीरिक गतिविधियाँ", feat_activity_desc: "उम्र-उपयुक्त गतिविधि दिनचर्या, बाहरी खेल और मोटर कौशल खेल दिशानिर्देश खोजें।",
+            feat_sleep_title: "नींद और दैनिक लक्ष्य", feat_sleep_desc: "अपने बच्चे की उम्र के लिए सटीक नींद के घंटे, जलयोजन लक्ष्य और स्क्रीन टाइम संतुलन सिफारिशें प्राप्त करें।",
+            assess_eyebrow: "व्यक्तिगत कल्याण", assess_title: "आइए आपके बच्चे के विकास को समझें।",
+            assess_desc: "एक व्यापक, व्यक्तिगत बाल कल्याण रिपोर्ट तैयार करने के लिए कुछ त्वरित विवरण दर्ज करें।",
+            form_submit: "कल्याण रिपोर्ट बनाएं →",
+            form_privacy: '🔒 <strong>100% निजी:</strong> आपके बच्चे का डेटा स्थानीय रूप से संसाधित होता है और आपके ब्राउज़र में ही रहता है।',
+            history_eyebrow: "प्रगति ट्रैकर", history_title: "सहेजा गया विकास इतिहास",
+            history_desc: "पिछले माप की समीक्षा करें और समय के साथ अपने बच्चे की प्रगति को ट्रैक करें।",
+            footer_tagline: "हर जगह बच्चों के लिए स्वस्थ, खुशहाल आदतों को पोषित करने में परिवारों की मदद करना।",
+            footer_copy: "© 2026 FitSphere प्लेटफ़ॉर्म। केवल शैक्षिक और कल्याण मार्गदर्शन के लिए। चिकित्सा निदान उपकरण नहीं।"
+        },
+        ta: {
+            nav_home: "முகப்பு", nav_features: "அம்சங்கள்", nav_assessment: "மதிப்பீடு", nav_history: "வளர்ச்சி வரலாறு",
+            nav_home_mobile: "🏠 முகப்பு", nav_features_mobile: "✨ அம்சங்கள்", nav_assessment_mobile: "📋 மதிப்பீடு", nav_history_mobile: "📈 வளர்ச்சி வரலாறு",
+            nav_getstarted: "தொடங்கு ↗", mobile_cta: "குழந்தை மதிப்பீட்டைத் தொடங்கு →",
+            hero_eyebrow: "✦ ஆரோக்கியமான குழந்தைகள், மகிழ்ச்சியான எதிர்காலம்",
+            hero_title: 'ஒவ்வொரு குழந்தையும்<br>ஒரு <span>ஆரோக்கியமான தொடக்கத்திற்கு</span> தகுதியானவர்.',
+            hero_desc: "0 முதல் 10 வயது குழந்தைகளுக்காக உருவாக்கப்பட்டது. உங்கள் குழந்தையின் வளர்ச்சியைப் புரிந்துகொள்ளுங்கள், ஆரோக்கியமான ஊட்டச்சத்து பழக்கங்களைக் கண்டறியுங்கள்.",
+            hero_cta: "மதிப்பீட்டைத் தொடங்கு →", hero_explore: "அம்சங்களை ஆராயுங்கள்",
+            stat_years: "ஆண்டுகள் ஆதரிக்கப்படுகின்றன", stat_private: "தனிப்பட்ட & உலாவி-அடிப்படை", stat_bench: "வளர்ச்சி அளவுகோல்கள்",
+            features_eyebrow: "நாங்கள் வழங்குவது", features_title: "ஆரோக்கியமான பயணம் இங்கே தொடங்குகிறது.",
+            features_desc: "குழந்தை பருவ வளர்ச்சியைப் புரிந்துகொண்டு வளர்க்க பெற்றோர் மற்றும் பராமரிப்பாளர்களுக்கு தேவையான அனைத்தும்.",
+            feat_growth_title: "வளர்ச்சி நுண்ணறிவுகள்", feat_growth_desc: "சர்வதேச WHO மற்றும் IAP வளர்ச்சி குறிப்புகளுடன் உயரம், எடை மற்றும் BMI சதவீதங்களைக் கண்காணிக்கவும்.",
+            feat_nutrition_title: "ஸ்மார்ட் ஊட்டச்சத்து", feat_nutrition_desc: "வயதுக்கேற்ற உணவு யோசனைகள், சமச்சீர் உணவு குழுக்கள், நீரேற்றம் மற்றும் ஆரோக்கியமான உணவு வழக்கங்களைக் கண்டறியுங்கள்.",
+            feat_activity_title: "உடல் செயல்பாடுகள்", feat_activity_desc: "வயதுக்கேற்ற இயக்க வழக்கங்கள், வெளிப்புற விளையாட்டுகள் மற்றும் மோட்டார் திறன் வழிகாட்டுதல்களைக் கண்டறியுங்கள்.",
+            feat_sleep_title: "தூக்கம் & தினசரி இலக்குகள்", feat_sleep_desc: "உங்கள் குழந்தையின் வயதுக்கான சரியான தூக்க நேரம், நீரேற்ற இலக்குகள் மற்றும் திரை நேர பரிந்துரைகளைப் பெறுங்கள்.",
+            assess_eyebrow: "தனிப்பயனாக்கப்பட்ட நலன்", assess_title: "உங்கள் குழந்தையின் வளர்ச்சியைப் புரிந்துகொள்வோம்.",
+            assess_desc: "ஒரு விரிவான, தனிப்பயனாக்கப்பட்ட குழந்தை நல அறிக்கையை உருவாக்க சில விவரங்களை உள்ளிடவும்.",
+            form_submit: "நல அறிக்கையை உருவாக்கு →",
+            form_privacy: '🔒 <strong>100% தனிப்பட்டது:</strong> உங்கள் குழந்தையின் தரவு உள்ளூரில் செயலாக்கப்பட்டு உங்கள் உலாவியில் இருக்கும்.',
+            history_eyebrow: "முன்னேற்ற கண்காணிப்பான்", history_title: "சேமிக்கப்பட்ட வளர்ச்சி வரலாறு",
+            history_desc: "கடந்த அளவீடுகளை மதிப்பாய்வு செய்து உங்கள் குழந்தையின் முன்னேற்றத்தைக் கண்காணிக்கவும்.",
+            footer_tagline: "எல்லா இடங்களிலும் குழந்தைகளுக்கு ஆரோக்கியமான, மகிழ்ச்சியான பழக்கங்களை வளர்க்க குடும்பங்களுக்கு உதவுகிறது.",
+            footer_copy: "© 2026 FitSphere தளம். கல்வி மற்றும் நல வழிகாட்டுதலுக்கு மட்டும். மருத்துவ கண்டறிதல் கருவி அல்ல."
+        },
+        te: {
+            nav_home: "హోమ్", nav_features: "ఫీచర్లు", nav_assessment: "అంచనా", nav_history: "పెరుగుదల చరిత్ర",
+            nav_home_mobile: "🏠 హోమ్", nav_features_mobile: "✨ ఫీచర్లు", nav_assessment_mobile: "📋 అంచనా", nav_history_mobile: "📈 పెరుగుదల చరిత్ర",
+            nav_getstarted: "ప్రారంభించండి ↗", mobile_cta: "పిల్లల అంచనా ప్రారంభించండి →",
+            hero_eyebrow: "✦ ఆరోగ్యకరమైన పిల్లలు, సంతోషకరమైన భవిష్యత్తు",
+            hero_title: 'ప్రతి పిల్లవాడు<br>ఒక <span>ఆరోగ్యకరమైన ప్రారంభానికి</span> అర్హుడు.',
+            hero_desc: "0 నుండి 10 సంవత్సరాల పిల్లల కోసం రూపొందించబడింది. మీ పిల్లల పెరుగుదలను అర్థం చేసుకోండి, ఆరోగ్యకరమైన పోషకాహార అలవాట్లను కనుగొనండి.",
+            hero_cta: "అంచనా ప్రారంభించండి →", hero_explore: "ఫీచర్లను అన్వేషించండి",
+            stat_years: "సంవత్సరాలు మద్దతు", stat_private: "ప్రైవేట్ & బ్రౌజర్ ఆధారిత", stat_bench: "పెరుగుదల ప్రమాణాలు",
+            features_eyebrow: "మేము అందించేది", features_title: "ఆరోగ్యకరమైన ప్రయాణం ఇక్కడ ప్రారంభమవుతుంది.",
+            features_desc: "బాల్యంలో పెరుగుదలను అర్థం చేసుకోవడానికి మరియు పెంచడానికి తల్లిదండ్రులు మరియు సంరక్షకులకు అవసరమైన ప్రతిదీ.",
+            feat_growth_title: "పెరుగుదల అంతర్దృష్టులు", feat_growth_desc: "అంతర్జాతీయ WHO మరియు IAP పెరుగుదల సూచనలతో ఎత్తు, బరువు మరియు BMI శాతాలను పర్యవేక్షించండి.",
+            feat_nutrition_title: "స్మార్ట్ పోషణ", feat_nutrition_desc: "వయసుకు తగిన భోజన ఆలోచనలు, సమతుల ఆహార సమూహాలు, హైడ్రేషన్ మరియు ఆరోగ్యకరమైన తినే అలవాట్లను కనుగొనండి.",
+            feat_activity_title: "శారీరక కార్యకలాపాలు", feat_activity_desc: "వయసుకు తగిన కదలిక దినచర్యలు, బయటి ఆటలు మరియు మోటార్ నైపుణ్య మార్గదర్శకాలను కనుగొనండి.",
+            feat_sleep_title: "నిద్ర & రోజువారీ లక్ష్యాలు", feat_sleep_desc: "మీ పిల్లల వయసుకు ఖచ్చితమైన నిద్ర గంటలు, హైడ్రేషన్ లక్ష్యాలు మరియు స్క్రీన్ టైమ్ సిఫార్సులను పొందండి.",
+            assess_eyebrow: "వ్యక్తిగతీకరించిన సంక్షేమం", assess_title: "మీ పిల్లల పెరుగుదలను అర్థం చేసుకుందాం.",
+            assess_desc: "సమగ్ర, వ్యక్తిగతీకరించిన శిశు సంక్షేమ నివేదికను రూపొందించడానికి కొన్ని వివరాలను నమోదు చేయండి.",
+            form_submit: "సంక్షేమ నివేదికను రూపొందించండి →",
+            form_privacy: '🔒 <strong>100% ప్రైవేట్:</strong> మీ పిల్లల డేటా స్థానికంగా ప్రాసెస్ చేయబడుతుంది మరియు మీ బ్రౌజర్‌లోనే ఉంటుంది.',
+            history_eyebrow: "పురోగతి ట్రాకర్", history_title: "సేవ్ చేసిన పెరుగుదల చరిత్ర",
+            history_desc: "గత కొలతలను సమీక్షించండి మరియు కాలక్రమంలో మీ పిల్లల పురోగతిని ట్రాక్ చేయండి.",
+            footer_tagline: "ప్రతిచోటా పిల్లల కోసం ఆరోగ్యకరమైన, సంతోషకరమైన అలవాట్లను పెంపొందించడంలో కుటుంబాలకు సహాయం చేయడం.",
+            footer_copy: "© 2026 FitSphere ప్లాట్‌ఫారమ్. విద్యా మరియు సంక్షేమ మార్గదర్శకత్వం కోసం మాత్రమే. వైద్య నిర్ధారణ సాధనం కాదు."
+        },
+        es: {
+            nav_home: "Inicio", nav_features: "Funciones", nav_assessment: "Evaluación", nav_history: "Historial de Crecimiento",
+            nav_home_mobile: "🏠 Inicio", nav_features_mobile: "✨ Funciones", nav_assessment_mobile: "📋 Evaluación", nav_history_mobile: "📈 Historial",
+            nav_getstarted: "Comenzar ↗", mobile_cta: "Iniciar Evaluación Infantil →",
+            hero_eyebrow: "✦ NIÑOS SANOS, FUTURO MÁS FELIZ",
+            hero_title: 'Cada niño merece<br>un <span>comienzo saludable.</span>',
+            hero_desc: "Diseñado para niños de 0 a 10 años. Comprende el crecimiento de tu hijo, descubre hábitos nutricionales saludables y explora orientación pediátrica personalizada con FitSphere.",
+            hero_cta: "Iniciar Evaluación →", hero_explore: "Explorar Funciones",
+            stat_years: "Años soportados", stat_private: "Privado y en navegador", stat_bench: "Referencias de crecimiento",
+            features_eyebrow: "LO QUE OFRECEMOS", features_title: "Un viaje más saludable comienza aquí.",
+            features_desc: "Todo lo que los padres y cuidadores necesitan para comprender y nutrir el crecimiento infantil.",
+            feat_growth_title: "Análisis de Crecimiento", feat_growth_desc: "Monitorea percentiles de altura, peso e IMC con referencias internacionales de crecimiento WHO e IAP.",
+            feat_nutrition_title: "Nutrición Inteligente", feat_nutrition_desc: "Descubre ideas de comidas adaptadas a la edad, grupos alimenticios equilibrados, hidratación y rutinas de alimentación saludable.",
+            feat_activity_title: "Actividades Físicas", feat_activity_desc: "Encuentra rutinas de movimiento apropiadas para la edad, juegos al aire libre y guías de habilidades motoras.",
+            feat_sleep_title: "Sueño y Metas Diarias", feat_sleep_desc: "Obtén horas exactas de sueño, metas de hidratación y recomendaciones de tiempo de pantalla para la edad de tu hijo.",
+            assess_eyebrow: "BIENESTAR PERSONALIZADO", assess_title: "Entendamos el crecimiento de tu hijo.",
+            assess_desc: "Ingresa algunos datos rápidos para generar un informe integral y personalizado de bienestar pediátrico.",
+            form_submit: "Generar Informe de Bienestar →",
+            form_privacy: '🔒 <strong>100% Privado:</strong> Los datos de tu hijo se procesan localmente y permanecen en tu navegador.',
+            history_eyebrow: "SEGUIMIENTO DE PROGRESO", history_title: "Historial de Crecimiento Guardado",
+            history_desc: "Revisa mediciones anteriores y sigue el progreso de tu hijo a lo largo del tiempo.",
+            footer_tagline: "Ayudando a las familias a nutrir hábitos más saludables y felices para los niños en todas partes.",
+            footer_copy: "© 2026 Plataforma FitSphere. Solo para orientación educativa y de bienestar. No es una herramienta de diagnóstico médico."
+        }
+    };
+
+    // Extend all language objects with the extra keys
+    const EXTRA_KEYS = {
+        en: {
+            form_title: "Child's Profile", form_subtitle: "Fill in details to generate a personalized pediatric wellness report.",
+            unit_label: "Units:", unit_metric: "Metric (cm, kg)", unit_imperial: "Imperial (ft/in, lbs)",
+            label_child_name: "Child's Name", label_age_years: "Age in Years", label_age_months: "Additional Months",
+            label_sex: "Sex (for pediatric growth standards)", opt_boy: "👦 Boy", opt_girl: "👧 Girl",
+            label_height_cm: "Height / Length (cm)", hint_height_cm: "Range: 30 to 150 cm",
+            label_weight_kg: "Weight (kg)", hint_weight_kg: "Range: 1 to 60 kg",
+            label_height_ft: "Height (Feet)", label_height_in: "Height (Inches)",
+            label_weight_lbs: "Weight (Pounds / lbs)", hint_weight_lbs: "Range: 2 to 132 lbs",
+            label_measurement: "How was height / length measured?", label_activity: "Current Daily Activity Level",
+            label_concern: "Primary Wellness Focus",
+            side_title: "Every child grows at their own pace.",
+            side_desc: "Growth is influenced by genetics, nutrition, physical activity, and sleep. A single measurement is just one chapter of their continuous growth story.",
+            side_includes_title: "What your report includes:",
+            side_inc_1: "✓ Age-adjusted pediatric BMI calculation", side_inc_2: "✓ Visual WHO & IAP Growth Gauge",
+            side_inc_3: "✓ Daily Sleep, Hydration & Screen targets", side_inc_4: "✓ Food habits & nutrition for your child's age",
+            side_inc_5: "✓ Health-care tips, check-ups & vaccine reminders", side_inc_6: "✓ Developmental milestones to watch",
+            side_inc_7: "✓ Active play & physical recommendations", side_inc_8: "✓ Save, print, and export growth history",
+            safety_title: "👩‍⚕️ Important Pediatric Note",
+            safety_desc: "FitSphere provides educational wellness information and is not a substitute for professional medical diagnosis. Always consult your pediatrician for individual clinical guidance.",
+            report_eyebrow: "YOUR CHILD'S PERSONALIZED REPORT", report_title: "Growth & Wellness Insights",
+            gauge_tag: "PEDIATRIC GROWTH CLASSIFICATION",
+            seg_under: "Underweight", seg_healthy: "Healthy Weight", seg_risk: "Overweight Risk", seg_high: "Higher Range",
+            meter_lower: "Lower Range", meter_ideal: "Ideal Growth Window", meter_higher: "Higher Range",
+            targets_eyebrow: "RECOMMENDED DAILY BENCHMARKS", targets_title: "Age-Appropriate Daily Targets",
+            targets_desc: "Evidence-based pediatric guidelines from WHO and the American Academy of Pediatrics (AAP).",
+            rec_nutrition_title: "Nutrition Essentials", rec_food_title: "Food Habits", rec_health_title: "Health Care Tips",
+            rec_checkup_title: "Check-ups & Vaccines", rec_milestone_title: "Milestones to Watch",
+            rec_activity_title: "Active Play & Fitness", rec_lifestyle_title: "Healthy Daily Routines",
+            doctor_note_title: "👩‍⚕️ When to Consult a Pediatrician",
+            btn_save: "💾 Save to Growth History", btn_print: "🖨️ Print / Save as PDF",
+            btn_export_single: "📥 Export Report (CSV)", btn_new: "🔄 New Assessment",
+            btn_export_all: "📥 Export All Records", btn_clear_all: "🗑️ Clear All",
+            empty_history: "No saved measurements yet. Complete an assessment above and click \"Save to Growth History\"."
+        },
+        hi: {
+            form_title: "बच्चे की प्रोफ़ाइल", form_subtitle: "व्यक्तिगत बाल कल्याण रिपोर्ट बनाने के लिए विवरण भरें।",
+            unit_label: "इकाइयाँ:", unit_metric: "मेट्रिक (cm, kg)", unit_imperial: "इम्पीरियल (ft/in, lbs)",
+            label_child_name: "बच्चे का नाम", label_age_years: "आयु (वर्षों में)", label_age_months: "अतिरिक्त महीने",
+            label_sex: "लिंग (बाल विकास मानकों के लिए)", opt_boy: "👦 लड़का", opt_girl: "👧 लड़की",
+            label_height_cm: "ऊँचाई / लंबाई (cm)", hint_height_cm: "सीमा: 30 से 150 cm",
+            label_weight_kg: "वजन (kg)", hint_weight_kg: "सीमा: 1 से 60 kg",
+            label_height_ft: "ऊँचाई (फीट)", label_height_in: "ऊँचाई (इंच)",
+            label_weight_lbs: "वजन (पाउंड)", hint_weight_lbs: "सीमा: 2 से 132 lbs",
+            label_measurement: "ऊँचाई / लंबाई कैसे मापी गई?", label_activity: "वर्तमान दैनिक गतिविधि स्तर",
+            label_concern: "प्राथमिक कल्याण फोकस",
+            side_title: "प्रत्येक बच्चा अपनी गति से बढ़ता है।",
+            side_desc: "विकास आनुवंशिकता, पोषण, शारीरिक गतिविधि और नींद से प्रभावित होता है।",
+            side_includes_title: "आपकी रिपोर्ट में शामिल है:",
+            side_inc_1: "✓ आयु-समायोजित बाल BMI गणना", side_inc_2: "✓ दृश्य WHO & IAP विकास गेज",
+            side_inc_3: "✓ दैनिक नींद, जलयोजन & स्क्रीन लक्ष्य", side_inc_4: "✓ आपके बच्चे की उम्र के लिए पोषण",
+            side_inc_5: "✓ स्वास्थ्य सुझाव, जाँच & टीकाकरण अनुस्मारक", side_inc_6: "✓ विकासात्मक मील के पत्थर",
+            side_inc_7: "✓ सक्रिय खेल सिफारिशें", side_inc_8: "✓ विकास इतिहास सहेजें, प्रिंट करें",
+            safety_title: "👩‍⚕️ महत्वपूर्ण बाल चिकित्सा नोट",
+            safety_desc: "FitSphere शैक्षिक कल्याण जानकारी प्रदान करता है और पेशेवर चिकित्सा निदान का विकल्प नहीं है।",
+            report_eyebrow: "आपके बच्चे की व्यक्तिगत रिपोर्ट", report_title: "विकास & कल्याण अंतर्दृष्टि",
+            gauge_tag: "बाल विकास वर्गीकरण",
+            seg_under: "कम वजन", seg_healthy: "स्वस्थ वजन", seg_risk: "अधिक वजन जोखिम", seg_high: "उच्च श्रेणी",
+            meter_lower: "निम्न श्रेणी", meter_ideal: "आदर्श विकास खिड़की", meter_higher: "उच्च श्रेणी",
+            targets_eyebrow: "अनुशंसित दैनिक बेंचमार्क", targets_title: "आयु-उपयुक्त दैनिक लक्ष्य",
+            targets_desc: "WHO और अमेरिकन अकादमी ऑफ पीडियाट्रिक्स (AAP) से साक्ष्य-आधारित बाल दिशानिर्देश।",
+            rec_nutrition_title: "पोषण आवश्यकताएं", rec_food_title: "खान-पान की आदतें", rec_health_title: "स्वास्थ्य देखभाल सुझाव",
+            rec_checkup_title: "जाँच & टीके", rec_milestone_title: "देखने योग्य मील के पत्थर",
+            rec_activity_title: "सक्रिय खेल & फिटनेस", rec_lifestyle_title: "स्वस्थ दैनिक दिनचर्या",
+            doctor_note_title: "👩‍⚕️ बाल रोग विशेषज्ञ से कब परामर्श करें",
+            btn_save: "💾 विकास इतिहास में सहेजें", btn_print: "🖨️ प्रिंट / PDF के रूप में सहेजें",
+            btn_export_single: "📥 रिपोर्ट निर्यात (CSV)", btn_new: "🔄 नया मूल्यांकन",
+            btn_export_all: "📥 सभी रिकॉर्ड निर्यात करें", btn_clear_all: "🗑️ सभी साफ़ करें",
+            empty_history: "अभी तक कोई सहेजा गया माप नहीं। ऊपर मूल्यांकन पूरा करें और \"विकास इतिहास में सहेजें\" पर क्लिक करें।"
+        },
+        ta: {
+            form_title: "குழந்தையின் சுயவிவரம்", form_subtitle: "தனிப்பயனாக்கப்பட்ட குழந்தை நல அறிக்கையை உருவாக்க விவரங்களை நிரப்பவும்।",
+            unit_label: "அலகுகள்:", unit_metric: "மெட்ரிக் (cm, kg)", unit_imperial: "இம்பீரியல் (ft/in, lbs)",
+            label_child_name: "குழந்தையின் பெயர்", label_age_years: "வயது (ஆண்டுகளில்)", label_age_months: "கூடுதல் மாதங்கள்",
+            label_sex: "பாலினம் (வளர்ச்சி தரநிலைகளுக்கு)", opt_boy: "👦 சிறுவன்", opt_girl: "👧 சிறுமி",
+            label_height_cm: "உயரம் / நீளம் (cm)", hint_height_cm: "வரம்பு: 30 முதல் 150 cm",
+            label_weight_kg: "எடை (kg)", hint_weight_kg: "வரம்பு: 1 முதல் 60 kg",
+            label_height_ft: "உயரம் (அடி)", label_height_in: "உயரம் (இஞ்சி)",
+            label_weight_lbs: "எடை (பவுண்டு)", hint_weight_lbs: "வரம்பு: 2 முதல் 132 lbs",
+            label_measurement: "உயரம் / நீளம் எப்படி அளவிடப்பட்டது?", label_activity: "தற்போதைய தினசரி செயல்பாட்டு நிலை",
+            label_concern: "முதன்மை நலன் கவனம்",
+            side_title: "ஒவ்வொரு குழந்தையும் தனது சொந்த வேகத்தில் வளர்கிறது.",
+            side_desc: "வளர்ச்சி மரபணு, ஊட்டச்சத்து, உடல் செயல்பாடு மற்றும் தூக்கத்தால் பாதிக்கப்படுகிறது.",
+            side_includes_title: "உங்கள் அறிக்கையில் அடங்கியுள்ளது:",
+            side_inc_1: "✓ வயது சரிசெய்யப்பட்ட குழந்தை BMI கணக்கீடு", side_inc_2: "✓ காட்சி WHO & IAP வளர்ச்சி அளவி",
+            side_inc_3: "✓ தினசரி தூக்கம், நீரேற்றம் & திரை இலக்குகள்", side_inc_4: "✓ உங்கள் குழந்தையின் வயதுக்கான ஊட்டச்சத்து",
+            side_inc_5: "✓ சுகாதார குறிப்புகள் & தடுப்பூசி நினைவூட்டல்கள்", side_inc_6: "✓ வளர்ச்சி மைல்கற்கள்",
+            side_inc_7: "✓ செயலில் விளையாட்டு பரிந்துரைகள்", side_inc_8: "✓ வளர்ச்சி வரலாற்றை சேமி, அச்சிடு",
+            safety_title: "👩‍⚕️ முக்கியமான குழந்தை மருத்துவ குறிப்பு",
+            safety_desc: "FitSphere கல்வி நல தகவல்களை வழங்குகிறது மற்றும் தொழில்முறை மருத்துவ கண்டறிதலுக்கு மாற்றாக இல்லை.",
+            report_eyebrow: "உங்கள் குழந்தையின் தனிப்பயன் அறிக்கை", report_title: "வளர்ச்சி & நல நுண்ணறிவுகள்",
+            gauge_tag: "குழந்தை வளர்ச்சி வகைப்பாடு",
+            seg_under: "குறைந்த எடை", seg_healthy: "ஆரோக்கியமான எடை", seg_risk: "அதிக எடை அபாயம்", seg_high: "உயர் வரம்பு",
+            meter_lower: "குறைந்த வரம்பு", meter_ideal: "சிறந்த வளர்ச்சி சாளரம்", meter_higher: "உயர் வரம்பு",
+            targets_eyebrow: "பரிந்துரைக்கப்பட்ட தினசரி இலக்குகள்", targets_title: "வயதுக்கேற்ற தினசரி இலக்குகள்",
+            targets_desc: "WHO மற்றும் அமெரிக்க குழந்தை மருத்துவ அகாடமியின் (AAP) ஆதாரம் சார்ந்த வழிகாட்டுதல்கள்.",
+            rec_nutrition_title: "ஊட்டச்சத்து அத்தியாவசியங்கள்", rec_food_title: "உணவு பழக்கங்கள்", rec_health_title: "சுகாதார பராமரிப்பு குறிப்புகள்",
+            rec_checkup_title: "பரிசோதனைகள் & தடுப்பூசிகள்", rec_milestone_title: "கவனிக்க வேண்டிய மைல்கற்கள்",
+            rec_activity_title: "செயலில் விளையாட்டு & உடற்தகுதி", rec_lifestyle_title: "ஆரோக்கியமான தினசரி வழக்கங்கள்",
+            doctor_note_title: "👩‍⚕️ குழந்தை மருத்துவரை எப்போது அணுக வேண்டும்",
+            btn_save: "💾 வளர்ச்சி வரலாற்றில் சேமி", btn_print: "🖨️ அச்சிடு / PDF ஆக சேமி",
+            btn_export_single: "📥 அறிக்கையை ஏற்றுமதி (CSV)", btn_new: "🔄 புதிய மதிப்பீடு",
+            btn_export_all: "📥 அனைத்து பதிவுகளையும் ஏற்றுமதி", btn_clear_all: "🗑️ அனைத்தையும் அழி",
+            empty_history: "இன்னும் சேமிக்கப்பட்ட அளவீடுகள் இல்லை. மேலே மதிப்பீட்டை முடித்து \"வளர்ச்சி வரலாற்றில் சேமி\" என்பதை கிளிக் செய்யவும்."
+        },
+        te: {
+            form_title: "పిల్లల ప్రొఫైల్", form_subtitle: "వ్యక్తిగతీకరించిన శిశు నివేదిక రూపొందించడానికి వివరాలు నమోదు చేయండి.",
+            unit_label: "యూనిట్లు:", unit_metric: "మెట్రిక్ (cm, kg)", unit_imperial: "ఇంపీరియల్ (ft/in, lbs)",
+            label_child_name: "పిల్లల పేరు", label_age_years: "వయసు (సంవత్సరాలలో)", label_age_months: "అదనపు నెలలు",
+            label_sex: "లింగం (పెరుగుదల ప్రమాణాలకు)", opt_boy: "👦 అబ్బాయి", opt_girl: "👧 అమ్మాయి",
+            label_height_cm: "ఎత్తు / పొడవు (cm)", hint_height_cm: "పరిధి: 30 నుండి 150 cm",
+            label_weight_kg: "బరువు (kg)", hint_weight_kg: "పరిధి: 1 నుండి 60 kg",
+            label_height_ft: "ఎత్తు (అడుగులు)", label_height_in: "ఎత్తు (అంగుళాలు)",
+            label_weight_lbs: "బరువు (పౌండ్లు)", hint_weight_lbs: "పరిధి: 2 నుండి 132 lbs",
+            label_measurement: "ఎత్తు / పొడవు ఎలా కొలవబడింది?", label_activity: "ప్రస్తుత రోజువారీ కార్యకలాప స్థాయి",
+            label_concern: "ప్రాథమిక సంక్షేమ దృష్టి",
+            side_title: "ప్రతి పిల్లవాడు తమ స్వంత వేగంలో పెరుగుతాడు.",
+            side_desc: "పెరుగుదల జన్యుశాస్త్రం, పోషణ, శారీరక కార్యకలాపాలు మరియు నిద్రతో ప్రభావితమవుతుంది.",
+            side_includes_title: "మీ నివేదికలో ఉన్నవి:",
+            side_inc_1: "✓ వయసు సర్దుబాటు చేయబడిన శిశు BMI గణన", side_inc_2: "✓ దృశ్య WHO & IAP పెరుగుదల గేజ్",
+            side_inc_3: "✓ రోజువారీ నిద్ర, హైడ్రేషన్ & స్క్రీన్ లక్ష్యాలు", side_inc_4: "✓ మీ పిల్లల వయసుకు పోషణ",
+            side_inc_5: "✓ ఆరోగ్య చిట్కాలు & టీకా రిమైండర్లు", side_inc_6: "✓ అభివృద్ధి మైలురాళ్ళు",
+            side_inc_7: "✓ చురుకైన ఆట సిఫార్సులు", side_inc_8: "✓ పెరుగుదల చరిత్రను సేవ్, ప్రింట్ చేయండి",
+            safety_title: "👩‍⚕️ ముఖ్యమైన శిశు వైద్య గమనిక",
+            safety_desc: "FitSphere విద్యా సంక్షేమ సమాచారాన్ని అందిస్తుంది మరియు వృత్తిపరమైన వైద్య నిర్ధారణకు ప్రత్యామ్నాయం కాదు.",
+            report_eyebrow: "మీ పిల్లల వ్యక్తిగతీకరించిన నివేదిక", report_title: "పెరుగుదల & సంక్షేమ అంతర్దృష్టులు",
+            gauge_tag: "శిశు పెరుగుదల వర్గీకరణ",
+            seg_under: "తక్కువ బరువు", seg_healthy: "ఆరోగ్యకరమైన బరువు", seg_risk: "అధిక బరువు ప్రమాదం", seg_high: "ఎక్కువ పరిధి",
+            meter_lower: "తక్కువ పరిధి", meter_ideal: "ఆదర్శ పెరుగుదల విండో", meter_higher: "ఎక్కువ పరిధి",
+            targets_eyebrow: "సిఫార్సు చేయబడిన రోజువారీ లక్ష్యాలు", targets_title: "వయసుకు తగిన రోజువారీ లక్ష్యాలు",
+            targets_desc: "WHO మరియు అమెరికన్ అకాడమీ ఆఫ్ పీడియాట్రిక్స్ (AAP) నుండి ఆధారం-ఆధారిత శిశు మార్గదర్శకాలు.",
+            rec_nutrition_title: "పోషణ ముఖ్యాంశాలు", rec_food_title: "ఆహారపు అలవాట్లు", rec_health_title: "ఆరోగ్య సంరక్షణ చిట్కాలు",
+            rec_checkup_title: "పరీక్షలు & టీకాలు", rec_milestone_title: "గమనించాల్సిన మైలురాళ్ళు",
+            rec_activity_title: "చురుకైన ఆట & ఫిట్‌నెస్", rec_lifestyle_title: "ఆరోగ్యకరమైన రోజువారీ దినచర్యలు",
+            doctor_note_title: "👩‍⚕️ శిశు వైద్యుడిని ఎప్పుడు సంప్రదించాలి",
+            btn_save: "💾 పెరుగుదల చరిత్రలో సేవ్ చేయండి", btn_print: "🖨️ ప్రింట్ / PDF గా సేవ్ చేయండి",
+            btn_export_single: "📥 నివేదిక ఎగుమతి (CSV)", btn_new: "🔄 కొత్త అంచనా",
+            btn_export_all: "📥 అన్ని రికార్డులు ఎగుమతి", btn_clear_all: "🗑️ అన్నీ క్లియర్ చేయండి",
+            empty_history: "ఇంకా సేవ్ చేయబడిన కొలతలు లేవు. పైన అంచనా పూర్తి చేసి \"పెరుగుదల చరిత్రలో సేవ్ చేయండి\" క్లిక్ చేయండి."
+        },
+        es: {
+            form_title: "Perfil del Niño", form_subtitle: "Completa los detalles para generar un informe de bienestar pediátrico personalizado.",
+            unit_label: "Unidades:", unit_metric: "Métrico (cm, kg)", unit_imperial: "Imperial (ft/in, lbs)",
+            label_child_name: "Nombre del Niño", label_age_years: "Edad en Años", label_age_months: "Meses Adicionales",
+            label_sex: "Sexo (para estándares de crecimiento pediátrico)", opt_boy: "👦 Niño", opt_girl: "👧 Niña",
+            label_height_cm: "Altura / Longitud (cm)", hint_height_cm: "Rango: 30 a 150 cm",
+            label_weight_kg: "Peso (kg)", hint_weight_kg: "Rango: 1 a 60 kg",
+            label_height_ft: "Altura (Pies)", label_height_in: "Altura (Pulgadas)",
+            label_weight_lbs: "Peso (Libras)", hint_weight_lbs: "Rango: 2 a 132 lbs",
+            label_measurement: "¿Cómo se midió la altura / longitud?", label_activity: "Nivel de Actividad Diaria Actual",
+            label_concern: "Enfoque Principal de Bienestar",
+            side_title: "Cada niño crece a su propio ritmo.",
+            side_desc: "El crecimiento está influenciado por la genética, la nutrición, la actividad física y el sueño.",
+            side_includes_title: "Lo que incluye tu informe:",
+            side_inc_1: "✓ Cálculo de IMC pediátrico ajustado por edad", side_inc_2: "✓ Medidor visual de crecimiento WHO & IAP",
+            side_inc_3: "✓ Objetivos diarios de sueño, hidratación & pantalla", side_inc_4: "✓ Nutrición para la edad de tu hijo",
+            side_inc_5: "✓ Consejos de salud, revisiones & recordatorios de vacunas", side_inc_6: "✓ Hitos del desarrollo",
+            side_inc_7: "✓ Recomendaciones de juego activo", side_inc_8: "✓ Guardar, imprimir y exportar historial de crecimiento",
+            safety_title: "👩‍⚕️ Nota Pediátrica Importante",
+            safety_desc: "FitSphere proporciona información educativa de bienestar y no es un sustituto del diagnóstico médico profesional.",
+            report_eyebrow: "INFORME PERSONALIZADO DE TU HIJO", report_title: "Perspectivas de Crecimiento & Bienestar",
+            gauge_tag: "CLASIFICACIÓN DE CRECIMIENTO PEDIÁTRICO",
+            seg_under: "Bajo peso", seg_healthy: "Peso saludable", seg_risk: "Riesgo de sobrepeso", seg_high: "Rango elevado",
+            meter_lower: "Rango Bajo", meter_ideal: "Ventana de Crecimiento Ideal", meter_higher: "Rango Alto",
+            targets_eyebrow: "OBJETIVOS DIARIOS RECOMENDADOS", targets_title: "Objetivos Diarios Apropiados para la Edad",
+            targets_desc: "Guías pediátricas basadas en evidencia de la OMS y la Academia Americana de Pediatría (AAP).",
+            rec_nutrition_title: "Esenciales de Nutrición", rec_food_title: "Hábitos Alimentarios", rec_health_title: "Consejos de Salud",
+            rec_checkup_title: "Revisiones & Vacunas", rec_milestone_title: "Hitos a Observar",
+            rec_activity_title: "Juego Activo & Fitness", rec_lifestyle_title: "Rutinas Diarias Saludables",
+            doctor_note_title: "👩‍⚕️ Cuándo Consultar a un Pediatra",
+            btn_save: "💾 Guardar en Historial de Crecimiento", btn_print: "🖨️ Imprimir / Guardar como PDF",
+            btn_export_single: "📥 Exportar Informe (CSV)", btn_new: "🔄 Nueva Evaluación",
+            btn_export_all: "📥 Exportar Todos los Registros", btn_clear_all: "🗑️ Limpiar Todo",
+            empty_history: "Aún no hay mediciones guardadas. Completa una evaluación arriba y haz clic en \"Guardar en Historial de Crecimiento\"."
+        }
+    };
+
+    // Merge extra keys into TRANSLATIONS
+    Object.keys(EXTRA_KEYS).forEach(lang => {
+        if (TRANSLATIONS[lang]) Object.assign(TRANSLATIONS[lang], EXTRA_KEYS[lang]);
+    });
+
+    const LANG_LABELS = { en: "EN", hi: "हि", ta: "த", te: "తె", es: "ES" };
+    let currentLang = localStorage.getItem("fitsphereLang") || "en";
+
+    function applyLanguage(lang) {
+        const dict = TRANSLATIONS[lang];
+        if (!dict) return;
+        currentLang = lang;
+        localStorage.setItem("fitsphereLang", lang);
+
+        // Update all data-i18n elements
+        document.querySelectorAll("[data-i18n]").forEach(el => {
+            const key = el.getAttribute("data-i18n");
+            if (dict[key] !== undefined) {
+                el.innerHTML = dict[key];
+            }
+        });
+
+        // Update html lang attribute
+        document.documentElement.lang = lang;
+
+        // Update language button label
+        const langLabel = document.getElementById("langLabel");
+        if (langLabel) langLabel.textContent = LANG_LABELS[lang] || lang.toUpperCase();
+
+        // Update active state in dropdown and mobile buttons
+        document.querySelectorAll(".lang-option, .lang-btn-mobile").forEach(btn => {
+            btn.classList.toggle("active", btn.getAttribute("data-lang") === lang);
+        });
+    }
+
+    // Language Switcher Toggle
+    const langToggleBtn = document.getElementById("langToggleBtn");
+    const langDropdown = document.getElementById("langDropdown");
+
+    if (langToggleBtn && langDropdown) {
+        langToggleBtn.addEventListener("click", (e) => {
+            e.stopPropagation();
+            langDropdown.classList.toggle("open");
+        });
+
+        document.querySelectorAll(".lang-option").forEach(btn => {
+            btn.addEventListener("click", () => {
+                const lang = btn.getAttribute("data-lang");
+                applyLanguage(lang);
+                langDropdown.classList.remove("open");
+                showToast(lang === "en" ? "Language: English" : `Language changed!`, "success");
+            });
+        });
+
+        // Close dropdown when clicking outside
+        document.addEventListener("click", (e) => {
+            if (!langToggleBtn.contains(e.target) && !langDropdown.contains(e.target)) {
+                langDropdown.classList.remove("open");
+            }
+        });
+    }
+
+    // Mobile lang buttons
+    document.querySelectorAll(".lang-btn-mobile").forEach(btn => {
+        btn.addEventListener("click", () => {
+            const lang = btn.getAttribute("data-lang");
+            applyLanguage(lang);
+            // update active state on mobile buttons
+            document.querySelectorAll(".lang-btn-mobile").forEach(b => b.classList.toggle("active", b.getAttribute("data-lang") === lang));
+            toggleMobileMenu(false);
+        });
+    });
+
+    // ==========================================================================
+    // 18. INITIALIZATION
+    // ==========================================================================
     displayHistory();
+    if (currentLang !== "en") applyLanguage(currentLang);
 
 });
